@@ -6,8 +6,8 @@ function UserHeader(props) {
     useEffect(() => {
         props.fetchUser(props.userId)
     }, []) 
-    
-    const user = props.users.find( (user) => user.id === props.userId )
+
+    const { user } = props
 
     if (!user) {
         return null
@@ -18,8 +18,8 @@ function UserHeader(props) {
     )
 }
 
-const mapStateToProps = (state) => {
-    return { users: state.users }
+const mapStateToProps = (state, ownProps) => {
+    return { user: state.users.find( user => user.id === ownProps.userId) }
 }
 
 export default connect(mapStateToProps, { fetchUser })(UserHeader)
